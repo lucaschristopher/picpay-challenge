@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">PicPay Challenge</string>
+    <string name="title">Contatos</string>
+    <string name="error">Ocorreu um erro. Tente novamente.</string>
+    <string name="users_not_found">Nenhum usuário encontrado...</string>
+    <string name="btn_refresh_text">Requisitar novamente?</string>
 </resources>
