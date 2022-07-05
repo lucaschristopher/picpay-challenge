@@ -8,11 +8,11 @@ class GetPicPayUsers(
     private val repository: PicPayRepository
 ) : GetPicPayUsersUserCase {
 
-    override suspend fun invoke(): Flow<List<User>> {
-        return repository.getUsers()
+    override suspend fun invoke(): Flow<List<User>?> {
+        return this.repository.getUsers()
     }
 }
 
 interface GetPicPayUsersUserCase {
-    suspend operator fun invoke(): Flow<List<User>>
+    suspend operator fun invoke(): Flow<List<User>?>
 }

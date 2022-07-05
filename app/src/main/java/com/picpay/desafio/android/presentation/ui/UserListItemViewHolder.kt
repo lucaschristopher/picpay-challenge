@@ -5,7 +5,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.picpay.desafio.android.R
 import com.picpay.desafio.android.databinding.ListItemUserBinding
-import com.picpay.desafio.android.presentation.model.UserUiModel
+import com.picpay.desafio.android.presentation.model.UserState
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 
@@ -15,7 +15,7 @@ class UserListItemViewHolder(
 
     private var bind: ListItemUserBinding = DataBindingUtil.bind(itemView)!!
 
-    fun bind(user: UserUiModel) {
+    fun bind(user: UserState) {
         bind.name.text = user.name
         bind.username.text = user.username
         bind.progressBar.visibility = View.VISIBLE

@@ -1,7 +1,10 @@
 package com.picpay.desafio.android.data.datasource.local
 
-import com.picpay.desafio.android.data.datasource.local.model.UserEntity
+import com.picpay.desafio.android.domain.model.User
 
 interface PicPayLocalDataSource {
-    suspend fun getUsers(): List<UserEntity>
+
+    fun getUsers(): List<User>
+
+    fun saveUser(user: User)
 }

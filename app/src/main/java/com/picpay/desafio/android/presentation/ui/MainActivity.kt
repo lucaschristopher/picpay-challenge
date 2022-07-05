@@ -1,21 +1,27 @@
 package com.picpay.desafio.android.presentation.ui
 
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.picpay.desafio.android.core.AppState
-import com.picpay.desafio.android.core.createDialog
+import com.picpay.desafio.android.core.state.RequestState
+import com.picpay.desafio.android.core.util.Constants
+import com.picpay.desafio.android.core.util.createDialog
+import com.picpay.desafio.android.core.util.gone
+import com.picpay.desafio.android.core.util.visible
 import com.picpay.desafio.android.databinding.ActivityMainBinding
-import com.picpay.desafio.android.presentation.model.UserUiModel
+import com.picpay.desafio.android.presentation.model.UserState
 import com.picpay.desafio.android.presentation.viewmodel.PicPayViewModel
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
+    // region Properties
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-    private val userListAdapter by lazy { UserListAdapter() }
     private val viewModel by viewModel<PicPayViewModel>()
+    private val userListAdapter by lazy { UserListAdapter() }
+    // endregion
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,30 +31,37 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         setupListeners()
-        initObserver()
         setupList()
+        initObserver()
         viewModel.init()
     }
 
     private fun initObserver() {
-        viewModel.users.observe(this) {
-            when (it) {
-                AppState.Loading -> showLoading()
-                is AppState.Error -> {
-                    createDialog {
-                        setMessage(it.error.message)
-                        setCancelable(false)
-                        setPositiveButton(android.R.string.ok) { _, _ -> viewModel.init() }
-                    }.show()
-                    hideLoading()
-                }
-                is AppState.Success -> {
-                    userListAdapter.users = it.list
-                    setupLayout(it.list)
-                    hideLoading()
+        lifecycleScope.launch {
+            viewModel.users.collect { state ->
+                when (state) {
+                    is RequestState.Loading -> showLoading()
+                    is RequestState.Error -> handleError(state.message)
+                    is RequestState.Success -> handleSuccess(state.data)
+                    else -> {}
                 }
             }
         }
+    }
+
+    private fun handleSuccess(data: List<UserState>) {
+        userListAdapter.users = data
+        setupLayout(data)
+        hideLoading()
+    }
+
+    private fun handleError(message: String) {
+        createDialog {
+            setMessage(message)
+            setCancelable(false)
+            setPositiveButton(android.R.string.ok) { _, _ -> viewModel.init() }
+        }.show()
+        hideLoading()
     }
 
     private fun setupList() {
@@ -59,37 +72,39 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupListeners() {
-//        TODO: redo refresh
-//        binding.btnRefresh.setOnClickListener {
-//            viewModel.init()
-//        }
-    }
-
-    private fun setupLayout(list: List<UserUiModel>) {
-        if (list.isNullOrEmpty()) {
+        binding.btnRefresh.setOnClickListener {
+            binding.btnRefresh.gone()
             hideList()
-//            binding.tvUsersNotFound.visibility = View.VISIBLE
-//            binding.btnRefresh.visibility = View.VISIBLE
-        } else {
-            showList()
-//            binding.tvUsersNotFound.visibility = View.GONE
-//            binding.btnRefresh.visibility = View.GONE
+            viewModel.init()
         }
     }
 
+    private fun setupLayout(list: List<UserState>) {
+        if (list.isEmpty()) {
+            hideList()
+            handleError(Constants.ERROR_NOT_USERS_MESSAGE)
+            binding.btnRefresh.gone()
+        } else {
+            showList()
+            binding.btnRefresh.visible()
+        }
+    }
+
+    // region View Functions
     private fun showList() {
-        binding.recyclerView.visibility = View.VISIBLE
+        binding.recyclerView.visible()
     }
 
     private fun hideList() {
-        binding.recyclerView.visibility = View.GONE
+        binding.recyclerView.gone()
     }
 
     private fun showLoading() {
-        binding.userListProgressBar.visibility = View.VISIBLE
+        binding.userListProgressBar.visible()
     }
 
     private fun hideLoading() {
-        binding.userListProgressBar.visibility = View.GONE
+        binding.userListProgressBar.gone()
     }
+    //endregion
 }

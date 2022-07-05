@@ -1,44 +1,51 @@
 package com.picpay.desafio.android.presentation.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.picpay.desafio.android.core.AppState
-import com.picpay.desafio.android.core.toUiModel
+import com.picpay.desafio.android.core.mapper.PresentationMapper
+import com.picpay.desafio.android.core.state.RequestState
+import com.picpay.desafio.android.core.util.Constants
 import com.picpay.desafio.android.domain.GetPicPayUsersUserCase
+import com.picpay.desafio.android.domain.model.User
+import com.picpay.desafio.android.presentation.model.UserState
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 class PicPayViewModel(
-    private val getPicPayUsersUserCase: GetPicPayUsersUserCase
+    private val useCase: GetPicPayUsersUserCase
 ) : ViewModel() {
 
-    private val _users = MutableLiveData<AppState>()
-    val users: LiveData<AppState> = _users
+    private val _users = MutableStateFlow<RequestState<List<UserState>>>(
+        RequestState.Initial
+    )
+    val users: StateFlow<RequestState<List<UserState>>>
+        get() = _users
 
     fun init() {
-        // TODO: val cachedUsers = getUsersInPreferences()
         getPicPayUsers()
     }
 
     private fun getPicPayUsers() {
         viewModelScope.launch {
-            getPicPayUsersUserCase()
+            useCase.invoke()
                 .onStart {
-                    _users.postValue(AppState.Loading)
+                    _users.value = RequestState.Loading
                 }
                 .catch {
-                    _users.postValue(AppState.Error(it))
+                    _users.value = RequestState.Error(Constants.ERROR_HTTP_MESSAGE)
                 }
-                .collect { userList ->
-                    _users.postValue(
-                        AppState.Success(userList.map {
-                            it.toUiModel()
-                        })
-                    )
-                }
+                .collect(::handleResponse)
+        }
+    }
+
+    private fun handleResponse(list: List<User>?) {
+        _users.value = if (list == null) {
+            RequestState.Error(Constants.ERROR_NOT_USERS_MESSAGE)
+        } else {
+            RequestState.Success(PresentationMapper().mapList(list))
         }
     }
 }

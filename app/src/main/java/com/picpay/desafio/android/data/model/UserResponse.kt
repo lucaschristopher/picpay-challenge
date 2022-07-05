@@ -3,8 +3,8 @@ package com.picpay.desafio.android.data.model
 import com.google.gson.annotations.SerializedName
 
 data class UserResponse(
-    @SerializedName("img") val imgUser: String,
-    @SerializedName("name") val nameUser: String,
-    @SerializedName("id") val idUser: Int,
-    @SerializedName("username") val usernameUser: String
+    @SerializedName("id") val id: Int,
+    @SerializedName("img") val image: String,
+    @SerializedName("name") val name: String,
+    @SerializedName("username") val username: String
 )

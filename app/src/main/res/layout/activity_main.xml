@@ -10,11 +10,10 @@
         android:background="@color/colorPrimaryDark"
         tools:context=".ui.MainActivity">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayoutHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -30,7 +29,23 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-        </LinearLayout>
+            <Button
+                android:id="@+id/btnRefresh"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/btn_refresh_size"
+                android:layout_marginTop="@dimen/title_margin_top"
+                android:layout_marginEnd="@dimen/text_view_error_padding"
+                android:text="@string/refresh_button"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/text_size_error_button"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:visibility="visible" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"

@@ -13,6 +13,7 @@
     <dimen name="very_big_margin">40dp</dimen>
     <dimen name="circle_image_view_margin">12dp</dimen>
     <dimen name="text_size_error">18sp</dimen>
-    <dimen name="text_size_error_button">16sp</dimen>
+    <dimen name="text_size_error_button">14sp</dimen>
+    <dimen name="btn_refresh_size">35dp</dimen>
 
 </resources>
