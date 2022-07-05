@@ -1,6 +1,6 @@
 package com.picpay.desafio.android.data.datasource.local
 
-import com.picpay.desafio.android.core.mapper.DataMapper
+import com.picpay.desafio.android.data.util.DataMapper
 import com.picpay.desafio.android.data.datasource.local.dao.UserDao
 import com.picpay.desafio.android.domain.model.User
 

@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.picpay.desafio.android.core.state.RequestState
+import com.picpay.desafio.android.presentation.state.State
 import com.picpay.desafio.android.core.util.Constants
 import com.picpay.desafio.android.core.util.createDialog
 import com.picpay.desafio.android.core.util.gone
@@ -40,9 +40,9 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             viewModel.users.collect { state ->
                 when (state) {
-                    is RequestState.Loading -> showLoading()
-                    is RequestState.Error -> handleError(state.message)
-                    is RequestState.Success -> handleSuccess(state.data)
+                    is State.Loading -> showLoading()
+                    is State.Error -> handleError(state.message)
+                    is State.Success -> handleSuccess(state.data)
                     else -> {}
                 }
             }

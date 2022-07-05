@@ -1,5 +1,6 @@
-package com.picpay.desafio.android.core.mapper
+package com.picpay.desafio.android.presentation.util
 
+import com.picpay.desafio.android.core.mapper.Mapper
 import com.picpay.desafio.android.domain.model.User
 import com.picpay.desafio.android.presentation.model.UserState
 

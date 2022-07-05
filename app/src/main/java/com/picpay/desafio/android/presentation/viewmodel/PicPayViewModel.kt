@@ -2,12 +2,12 @@ package com.picpay.desafio.android.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.picpay.desafio.android.core.mapper.PresentationMapper
-import com.picpay.desafio.android.core.state.RequestState
+import com.picpay.desafio.android.presentation.state.State
 import com.picpay.desafio.android.core.util.Constants
-import com.picpay.desafio.android.domain.GetPicPayUsersUserCase
 import com.picpay.desafio.android.domain.model.User
+import com.picpay.desafio.android.domain.usecase.GetPicPayUsersUserCase
 import com.picpay.desafio.android.presentation.model.UserState
+import com.picpay.desafio.android.presentation.util.PresentationMapper
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -18,10 +18,10 @@ class PicPayViewModel(
     private val useCase: GetPicPayUsersUserCase
 ) : ViewModel() {
 
-    private val _users = MutableStateFlow<RequestState<List<UserState>>>(
-        RequestState.Initial
+    private val _users = MutableStateFlow<State<List<UserState>>>(
+        State.Initial
     )
-    val users: StateFlow<RequestState<List<UserState>>>
+    val users: StateFlow<State<List<UserState>>>
         get() = _users
 
     fun init() {
@@ -32,20 +32,26 @@ class PicPayViewModel(
         viewModelScope.launch {
             useCase.invoke()
                 .onStart {
-                    _users.value = RequestState.Loading
+                    handleLoading()
                 }
                 .catch {
-                    _users.value = RequestState.Error(Constants.ERROR_HTTP_MESSAGE)
+                    handleError()
                 }
                 .collect(::handleResponse)
         }
     }
 
-    private fun handleResponse(list: List<User>?) {
-        _users.value = if (list == null) {
-            RequestState.Error(Constants.ERROR_NOT_USERS_MESSAGE)
-        } else {
-            RequestState.Success(PresentationMapper().mapList(list))
-        }
+    // region Handlers
+    private fun handleLoading() {
+        _users.value = State.Loading
     }
+
+    private fun handleError() {
+        _users.value = State.Error(Constants.ERROR_HTTP_MESSAGE)
+    }
+
+    private fun handleResponse(list: List<User>) {
+        _users.value = State.Success(PresentationMapper().mapList(list))
+    }
+    //endregion
 }
