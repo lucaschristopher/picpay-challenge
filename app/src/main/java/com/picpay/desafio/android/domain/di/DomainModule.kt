@@ -1,13 +1,12 @@
 package com.picpay.desafio.android.domain.di
 
-import com.picpay.desafio.android.domain.usecase.GetPicPayUsers
-import com.picpay.desafio.android.domain.usecase.GetPicPayUsersUserCase
+import com.picpay.desafio.android.domain.usecase.GetPicPayUsersUseCase
 import org.koin.core.context.loadKoinModules
 import org.koin.dsl.module
 
 val useCaseModule = module {
-    factory<GetPicPayUsersUserCase> {
-        GetPicPayUsers(repository = get())
+    factory {
+        GetPicPayUsersUseCase(repository = get())
     }
 }
 

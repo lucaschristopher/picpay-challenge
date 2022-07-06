@@ -2,11 +2,11 @@ package com.picpay.desafio.android.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.picpay.desafio.android.presentation.state.State
 import com.picpay.desafio.android.core.util.Constants
 import com.picpay.desafio.android.domain.model.User
-import com.picpay.desafio.android.domain.usecase.GetPicPayUsersUserCase
+import com.picpay.desafio.android.domain.usecase.GetPicPayUsersUseCase
 import com.picpay.desafio.android.presentation.model.UserState
+import com.picpay.desafio.android.presentation.state.State
 import com.picpay.desafio.android.presentation.util.PresentationMapper
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 class PicPayViewModel(
-    private val useCase: GetPicPayUsersUserCase
+    private val useCase: GetPicPayUsersUseCase
 ) : ViewModel() {
 
     private val _users = MutableStateFlow<State<List<UserState>>>(
@@ -30,7 +30,7 @@ class PicPayViewModel(
 
     private fun getPicPayUsers() {
         viewModelScope.launch {
-            useCase.invoke()
+            useCase()
                 .onStart {
                     handleLoading()
                 }
