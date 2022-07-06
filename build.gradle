@@ -37,4 +37,6 @@ ext {
     expresso_version = "3.4.0"
     file_reader_version = "0.3.0"
     mockk_version = "1.12.4"
+    faker_version = "1.8.0"
+    test_core_version = "1.4.0"
 }

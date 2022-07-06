@@ -67,6 +67,7 @@ dependencies {
     implementation "io.insert-koin:koin-core:$koin_version"
     // Koin main features for Android
     implementation "io.insert-koin:koin-android:$koin_version"
+    implementation "androidx.test:core-ktx:$test_core_version"
     // Koin Test features
     testImplementation "io.insert-koin:koin-test:$koin_version"
     // Koin for JUnit 4
@@ -94,6 +95,9 @@ dependencies {
     // Picasso
     implementation "com.squareup.picasso:picasso:$picasso_version"
     implementation "de.hdodenhof:circleimageview:$circleimageview_version"
+
+    // Faker
+    implementation "io.github.serpro69:kotlin-faker:$faker_version"
 
     // Android instrumented tests
     androidTestImplementation "androidx.test.ext:junit:$junit_test_version"

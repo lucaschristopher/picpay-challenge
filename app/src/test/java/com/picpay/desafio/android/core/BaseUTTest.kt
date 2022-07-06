@@ -16,14 +16,9 @@ abstract class BaseUTTest : KoinTest {
      */
     private lateinit var mMockServerInstance: MockWebServer
 
-    /**
-     * Default, let server be shut down
-     */
-    private var mShouldStart = false
-
     @Before
     open fun setUp() {
-        startMockServer(true)
+        startMockServer()
     }
 
     /**
@@ -48,12 +43,9 @@ abstract class BaseUTTest : KoinTest {
     /**
      * Start Mockwebserver
      */
-    private fun startMockServer(shouldStart: Boolean) {
-        if (shouldStart) {
-            mShouldStart = shouldStart
-            mMockServerInstance = MockWebServer()
-            mMockServerInstance.start()
-        }
+    private fun startMockServer() {
+        mMockServerInstance = MockWebServer()
+        mMockServerInstance.start()
     }
 
     /**
@@ -65,16 +57,12 @@ abstract class BaseUTTest : KoinTest {
      * Stop Mockwebserver
      */
     private fun stopMockServer() {
-        if (mShouldStart) {
-            mMockServerInstance.shutdown()
-        }
+        mMockServerInstance.shutdown()
     }
 
     @After
     open fun tearDown() {
-        //Stop Mock server
         stopMockServer()
-        //Stop Koin as well
         stopKoin()
     }
 }
