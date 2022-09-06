@@ -23,6 +23,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.loadKoinModules
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
+import retrofit2.Converter
 import retrofit2.converter.gson.GsonConverterFactory
 
 val apiModule = module {
@@ -34,7 +35,7 @@ val networkModule = module {
         OkHttpClientFactory.build()
     }
 
-    single {
+    single<Converter.Factory> {
         GsonConverterFactory.create(GsonBuilder().create())
     }
 
@@ -44,7 +45,7 @@ val networkModule = module {
 }
 
 val repositoryModule = module {
-    single<PicPayRepository> {
+    factory<PicPayRepository> {
         PicPayRepositoryImpl(
             remoteDataSource = get(),
             localDataSource = get(),
@@ -52,13 +53,13 @@ val repositoryModule = module {
         )
     }
 
-    single<PicPayRemoteDataSource> {
+    factory<PicPayRemoteDataSource> {
         PicPayRemoteDataSourceImpl(
             service = get()
         )
     }
 
-    single<PicPayLocalDataSource> {
+    factory<PicPayLocalDataSource> {
         PicPayLocalDataSourceImpl(
             dao = get()
         )
@@ -66,7 +67,7 @@ val repositoryModule = module {
 }
 
 val daoModule = module {
-    single { AppDatabase.getDatabase(androidContext()).userDao }
+    factory { AppDatabase.getDatabase(androidContext()).userDao }
 }
 
 val dispatcherModule = module {

@@ -17,12 +17,19 @@ class App : Application() {
     }
 
     private fun setupKoin() {
-        startKoin {
-            androidContext(this@App)
-        }
+        startKoin()
+        loadModules()
+    }
 
+    private fun loadModules() {
         DataModule.load()
         DomainModule.load()
         PresentationModule.load()
+    }
+
+    private fun startKoin() {
+        startKoin {
+            androidContext(this@App)
+        }
     }
 }

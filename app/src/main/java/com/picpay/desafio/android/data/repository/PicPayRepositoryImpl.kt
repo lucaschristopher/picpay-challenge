@@ -21,6 +21,7 @@ class PicPayRepositoryImpl(
 
     override suspend fun getUsers(): Flow<List<User>> = flow {
         try {
+            // TODO: improve cache implementation
             if (CacheUtils.shouldGetDataInCache() && checkUsersInDataBase()) {
                 emit(getUsersInLocalDataBase())
             } else {
