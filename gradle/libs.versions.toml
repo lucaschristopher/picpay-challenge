@@ -1,35 +1,31 @@
 [versions]
 agp = "8.9.2"
 activityCompose = "1.10.1"
+appcompat = "1.7.0"
 coreTesting = "1.1.1"
+coreKtxVersion = "1.6.1"
 coil = "2.5.0"
 composeBom = "2025.04.01"
 coreKtx = "1.16.0"
 espressoCore = "3.6.1"
-gson = "2.13.1"
-
 junit = "4.13.2"
 junitVersion = "1.2.1"
 koin = "4.0.3"
 kotlin = "2.1.20"
 kotlinxSerializationJson = "1.8.1"
 ksp = "2.1.20-1.0.32"
-lifecycleRuntimeKtx = "2.9.0"
-lifecycleViewmodelCompose = "2.9.0"
-mockk = "1.13.9"
 kotlinTest = "2.1.20"
 kotlinxCoroutinesTest = "1.8.0"
-
+lifecycleRuntimeKtx = "2.9.0"
+lifecycleViewmodelCompose = "2.9.0"
+material = "1.12.0"
+mockk = "1.13.9"
+moshi = "1.15.2"
 navigationCompose = "2.9.0"
+runtimeAndroid = "1.8.0"
 room = "2.7.1"
 retrofit = "2.11.0"
 okhttp = "4.12.0"
-mockWebServer = "4.12.0"
-
-material = "1.12.0"
-runtimeAndroid = "1.8.0"
-appcompat = "1.7.0"
-coreKtxVersion = "1.6.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -47,32 +43,31 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
+androidx-runtime-android = { group = "androidx.compose.runtime", name = "runtime-android", version.ref = "runtimeAndroid" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+
 coil = { module = "io.coil-kt:coil", version.ref = "coil" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
+core-ktx = { group = "androidx.test", name = "core-ktx", version.ref = "coreKtxVersion" }
+core-testing = { module = "android.arch.core:core-testing", version.ref = "coreTesting" }
 
-gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
 koin-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
-core-testing = { module = "android.arch.core:core-testing", version.ref = "coreTesting" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
 kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlinTest" }
-mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
-
-retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
-converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
-okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
-mockwebserver = { group = "com.squareup.okhttp3", name = "mockwebserver", version.ref = "mockWebServer" }
-
-androidx-runtime-android = { group = "androidx.compose.runtime", name = "runtime-android", version.ref = "runtimeAndroid" }
-androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+moshi-core = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
+moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi" }
+moshi-converter = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
 
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
-core-ktx = { group = "androidx.test", name = "core-ktx", version.ref = "coreKtxVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

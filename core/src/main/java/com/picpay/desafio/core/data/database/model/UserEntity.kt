@@ -2,19 +2,19 @@ package com.picpay.desafio.core.data.database.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 
 private const val TABLE = "table_users"
 
 @Entity(tableName = TABLE)
 data class UserEntity(
     @PrimaryKey(autoGenerate = false)
-    @SerializedName("id")
+    @Json(name = "id")
     val id: Int,
-    @SerializedName("image")
+    @Json(name = "image")
     val image: String,
-    @SerializedName("name")
+    @Json(name = "name")
     val name: String,
-    @SerializedName("username")
+    @Json(name = "username")
     val username: String,
 )

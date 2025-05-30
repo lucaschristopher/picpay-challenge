@@ -68,8 +68,9 @@ dependencies {
 
     implementation(libs.coil)
     implementation(libs.coil.compose)
-    implementation(libs.gson)
-    implementation(libs.converter.gson)
+    implementation(libs.moshi.core)
+    implementation(libs.moshi.kotlin)
+    implementation(libs.moshi.converter)
     implementation(libs.retrofit)
 
     implementation(libs.koin.android)
@@ -82,8 +83,9 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.core.testing)
 
-    testImplementation(libs.gson)
-    testImplementation(libs.converter.gson)
+    testImplementation(libs.moshi.core)
+    testImplementation(libs.moshi.kotlin)
+    testImplementation(libs.moshi.converter)
     testImplementation(libs.retrofit)
     testImplementation(libs.okhttp)
 

@@ -30,8 +30,7 @@ import com.picpay.desafio.android.R
 import com.picpay.desafio.android.domain.model.UserModel
 import com.picpay.desafio.designsystem.theme.GreenContainer
 import com.picpay.desafio.designsystem.theme.PicPayChallengeTheme
-import com.picpay.desafio.designsystem.theme.af04
-import com.picpay.desafio.designsystem.theme.af05
+import com.picpay.desafio.designsystem.theme.af07
 import com.picpay.desafio.designsystem.theme.dp12
 import com.picpay.desafio.designsystem.theme.dp16
 import com.picpay.desafio.designsystem.theme.dp4
@@ -76,7 +75,7 @@ fun UserItem(
         ) {
             Text(
                 modifier = Modifier
-                    .fillMaxWidth(af05),
+                    .fillMaxWidth(af07),
                 text = stringResource(R.string.avatar_name, user.username.lowercase()),
                 style = MaterialTheme.typography.bodyLarge.copy(
                     fontWeight = FontWeight.Bold
@@ -84,7 +83,7 @@ fun UserItem(
             )
             Spacer(modifier = Modifier.height(dp4))
             Text(
-                modifier = Modifier.fillMaxWidth(af04),
+                modifier = Modifier.fillMaxWidth(af07),
                 text = user.name,
                 style = MaterialTheme.typography.bodyMedium
             )

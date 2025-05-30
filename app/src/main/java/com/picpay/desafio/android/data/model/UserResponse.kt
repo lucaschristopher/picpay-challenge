@@ -1,14 +1,14 @@
 package com.picpay.desafio.android.data.model
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 
 data class UserResponse(
-    @SerializedName("id")
+    @Json(name = "id")
     val id: Int,
-    @SerializedName("img")
+    @Json(name = "img")
     val image: String,
-    @SerializedName("name")
+    @Json(name = "name")
     val name: String,
-    @SerializedName("username")
+    @Json(name = "username")
     val username: String,
 )
