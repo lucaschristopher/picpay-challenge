@@ -21,3 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "PicPay Challenge"
 include(":app")
+include(":core")
+include(":designsystem")
