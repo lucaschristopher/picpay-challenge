@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">PicPay Challenge</string>
     <string name="contacts">Contatos</string>
-    <string name="check_internet_connection_message">Oops! Erro ao carregar os dados. Verifique sua conexão com a internet.</string>
-    <string name="error_generic_message">Algo deu errado. Tente novamente.</string>
+    <string name="avatar_name">\@%1$s</string>
+    <string name="check_internet_connection_message">Oops! Verifique sua conexão com a internet.</string>
 
     <!-- Content Description -->
     <string name="user_avatar_content_description">User avatar</string>

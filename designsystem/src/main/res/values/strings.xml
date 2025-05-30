@@ -1,0 +1,9 @@
+<resources>
+    <string name="empty_state_title">Não há nada aqui...</string>
+    <string name="empty_state_description">Não há nada aqui no momento.\nTente recarregar.</string>
+    <string name="error_generic_message">Algo deu errado. Tente novamente.</string>
+
+    <!-- Content Description -->
+    <string name="empty_state_icon_content_description">Empty state icon</string>
+    <string name="error_state_icon_content_description">Error state icon</string>
+</resources>

@@ -13,7 +13,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            com.picpay.desafio.designsystem.theme.PicPayChallengeTheme(darkTheme = true) {
+            PicPayChallengeTheme {
                 val navController = rememberNavController()
                 NavigationGraph(navController = navController)
             }

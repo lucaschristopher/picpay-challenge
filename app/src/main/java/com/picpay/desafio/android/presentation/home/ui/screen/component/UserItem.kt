@@ -9,7 +9,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,7 +20,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,7 +35,6 @@ import com.picpay.desafio.designsystem.theme.dp12
 import com.picpay.desafio.designsystem.theme.dp16
 import com.picpay.desafio.designsystem.theme.dp4
 import com.picpay.desafio.designsystem.theme.dp50
-import com.picpay.desafio.designsystem.R as shared
 
 @Composable
 fun UserItem(
@@ -53,8 +54,18 @@ fun UserItem(
             contentDescription = stringResource(R.string.user_avatar_content_description),
         ) {
             when (painter.state) {
-                is AsyncImagePainter.State.Loading -> CircularProgressIndicator()
-                is AsyncImagePainter.State.Error -> painterResource(shared.drawable.ic_round_account_circle)
+                is AsyncImagePainter.State.Loading -> {
+                    CircularProgressIndicator()
+                }
+
+                is AsyncImagePainter.State.Error -> {
+                    Icon(
+                        modifier = Modifier.size(dp50),
+                        imageVector = Icons.Default.AccountCircle,
+                        contentDescription = stringResource(R.string.user_avatar_content_description),
+                    )
+                }
+
                 else -> SubcomposeAsyncImageContent()
             }
         }
@@ -65,7 +76,7 @@ fun UserItem(
             Text(
                 modifier = Modifier
                     .fillMaxWidth(af05),
-                text = user.username.lowercase(),
+                text = stringResource(R.string.avatar_name, user.username.lowercase()),
                 style = MaterialTheme.typography.bodyLarge.copy(
                     fontWeight = FontWeight.Bold
                 )

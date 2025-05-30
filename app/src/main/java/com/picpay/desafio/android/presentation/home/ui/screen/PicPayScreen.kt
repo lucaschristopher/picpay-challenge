@@ -7,21 +7,25 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.picpay.desafio.android.R
 import com.picpay.desafio.android.domain.model.UserModel
 import com.picpay.desafio.android.presentation.home.mvi.PicPayAction
+import com.picpay.desafio.android.presentation.home.mvi.PicPayResult
 import com.picpay.desafio.android.presentation.home.mvi.PicPayViewState
 import com.picpay.desafio.android.presentation.home.ui.screen.component.UserItem
 import com.picpay.desafio.android.presentation.home.viewmodel.PicPayViewModel
+import com.picpay.desafio.core.presentation.utils.showToast
 import com.picpay.desafio.designsystem.components.appbar.TopAppBarOnlyHeader
+import com.picpay.desafio.designsystem.components.empty.EmptyStateComponent
+import com.picpay.desafio.designsystem.components.empty.GenericErrorComponent
 import com.picpay.desafio.designsystem.components.pulltorefresh.PullToRefreshComponent
 import com.picpay.desafio.designsystem.components.skeleton.SkeletonComponent
 import com.picpay.desafio.designsystem.theme.PicPayChallengeTheme
@@ -33,8 +37,20 @@ import org.koin.androidx.compose.koinViewModel
 internal fun PicPayScreen(
     viewModel: PicPayViewModel = koinViewModel(),
 ) {
+    val context = LocalContext.current
+
     LaunchedEffect(Unit) {
         viewModel.dispatch(PicPayAction.GetUsers)
+    }
+
+    LaunchedEffect(viewModel.screen) {
+        viewModel.screen.collect { result ->
+            when (result) {
+                is PicPayResult.ShowOfflineToast -> {
+                    context.showToast(R.string.check_internet_connection_message).show()
+                }
+            }
+        }
     }
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -71,14 +87,14 @@ private fun Content(
         }
 
         uiState.exception != null -> {
-            Text(text = "Erro: ${uiState.exception.message}")
+            GenericErrorComponent()
         }
 
         else -> {
-            UserList(users = uiState.users)
+            if (uiState.users.isEmpty()) EmptyStateComponent()
+            else UserList(users = uiState.users)
         }
     }
-
 }
 
 @Composable
