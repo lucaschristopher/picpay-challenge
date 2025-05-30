@@ -28,6 +28,7 @@ import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
 import com.picpay.desafio.android.R
 import com.picpay.desafio.android.domain.model.UserModel
+import com.picpay.desafio.designsystem.theme.GreenContainer
 import com.picpay.desafio.designsystem.theme.PicPayChallengeTheme
 import com.picpay.desafio.designsystem.theme.af04
 import com.picpay.desafio.designsystem.theme.af05
@@ -55,7 +56,7 @@ fun UserItem(
         ) {
             when (painter.state) {
                 is AsyncImagePainter.State.Loading -> {
-                    CircularProgressIndicator()
+                    CircularProgressIndicator(color = GreenContainer)
                 }
 
                 is AsyncImagePainter.State.Error -> {

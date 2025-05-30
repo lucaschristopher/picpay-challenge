@@ -1,6 +1,7 @@
 package com.picpay.desafio.core.data.database
 
 import android.content.Context
+import androidx.annotation.VisibleForTesting
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -10,7 +11,7 @@ import com.picpay.desafio.core.data.database.model.UserEntity
 internal const val DATABASE_NAME = "picpay_database"
 
 @Database(entities = [UserEntity::class], version = 1, exportSchema = false)
-internal abstract class PicPayDatabase : RoomDatabase() {
+abstract class PicPayDatabase : RoomDatabase() {
 
     abstract val userDao: UserDao
 

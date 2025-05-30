@@ -58,12 +58,10 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.ui)
-
     implementation(libs.gson)
     implementation(libs.converter.gson)
     implementation(libs.retrofit)
     implementation(libs.okhttp)
-
     implementation(libs.koin.android)
     implementation(libs.koin.compose)
 
@@ -71,7 +69,14 @@ dependencies {
     implementation(libs.room.ktx)
     ksp(libs.room.compiler)
 
-    testImplementation(libs.junit)
+    implementation(libs.junit)
+    implementation(libs.mockk)
+    implementation(libs.kotlinx.coroutines.test)
+
+    testImplementation(libs.core.testing)
     androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.ui.test.junit4)
     androidTestImplementation(libs.androidx.espresso.core)
+    debugImplementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.test.manifest)
 }

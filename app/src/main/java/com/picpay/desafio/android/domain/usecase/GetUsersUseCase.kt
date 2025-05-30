@@ -7,10 +7,14 @@ import com.picpay.desafio.core.presentation.utils.toUiState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-internal class GetUsersUseCase(
+internal fun interface GetUsersUseCase {
+    fun invoke(isConnected: Boolean): Flow<State<List<UserModel>>>
+}
+
+internal class GetUsersUseCaseImpl(
     private val repository: PicPayRepository
-) {
-    operator fun invoke(isConnected: Boolean): Flow<State<List<UserModel>>> = flow {
+) : GetUsersUseCase {
+    override operator fun invoke(isConnected: Boolean): Flow<State<List<UserModel>>> = flow {
         val result = repository.getUsers(isConnected)
         emit(result.toUiState())
     }
